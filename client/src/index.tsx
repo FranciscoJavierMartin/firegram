@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { config } from 'dotenv';
+
+config();
+
+console.log(process.env.REACT_APP_API_KEY);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
