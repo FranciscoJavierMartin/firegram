@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 //Imports for bootrstrap styles
-import $ from 'jquery';
+/*import $ from 'jquery';
 import Popper from 'popper.js';
-import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap/dist/js/bootstrap.bundle';*/
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.scss';
 // End of imports for bootstrap
+import './index.scss';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
