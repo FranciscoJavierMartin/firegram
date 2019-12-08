@@ -11,14 +11,6 @@ stages:
   - test
   - deploy
 
-install_functions:
-  stage: install
-  script:
-    - cd ./functions && yarn install --cache-folder ../.cache_yarn
-  artifacts:
-    paths:
-    - functions/node_modules
-
 install_client:
   stage: install
   script:
@@ -48,9 +40,6 @@ deploy_all_production:
   stage: deploy
   script:
     - yarn global add firebase-tools --cache-folder ../.cache_yarn
-    - firebase deploy --token $FIREBASE_DEPLOY_KEY_PRODUCTION --project production
-  environment:
-    name: production
+    - firebase deploy --token $FIREBASE_DEPLOY_KEY_PRODUCTION
   dependencies:
-    - install_functions
     - build_client
