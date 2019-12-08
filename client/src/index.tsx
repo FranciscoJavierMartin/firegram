@@ -1,14 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
+//Imports for bootrstrap styles
+/*import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle';*/
+import 'bootstrap/dist/css/bootstrap.min.css';
+// End of imports for bootstrap
+import './index.scss';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { config } from 'dotenv';
 
 config();
-
-console.log(process.env.REACT_APP_API_KEY);
-console.log(process.env.PUBLIC_URL);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
