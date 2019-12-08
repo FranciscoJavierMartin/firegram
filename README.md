@@ -30,5 +30,9 @@ To get the firebase token for deployment follow these steps:
 
 ```firebase login:ci```
 
+<<<<<<< HEAD
 Take note of the token and use for FIREBASE_DEPLOY_KEY_PRODUCTION
 
+=======
+Take note of the token and use for FIREBASE_DEPLOY_KEY_PRODUCTION
+>>>>>>> Initial-setup
