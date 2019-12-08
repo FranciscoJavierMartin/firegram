@@ -43,3 +43,5 @@ deploy_all_production:
     - firebase deploy --token $FIREBASE_DEPLOY_KEY_PRODUCTION
   dependencies:
     - build_client
+  only:
+    - master
