@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import './App.scss';
 import Header from './components/Header';
-import Camera from './utils/device/Camera';
+//import Camera from './utils/device/Camera';
 
 const App: React.FC = () => {
   //const videoRef = useRef();
