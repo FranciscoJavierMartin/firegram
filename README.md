@@ -31,3 +31,9 @@ To get the firebase token for deployment follow these steps:
 ```firebase login:ci```
 
 Take note of the token and use for FIREBASE_DEPLOY_KEY_PRODUCTION
+
+## Note about bootstrap
+To disable warnings in production, add at the top of the file to prevent error on building in production
+~~~
+/* eslint-disable */
+~~~
