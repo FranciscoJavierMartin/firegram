@@ -37,10 +37,12 @@ const Camera = () => {
       <button onClick={() => {
         if(canvasRef){
           const context = canvasRef.current.getContext('2d');
-          context.drawImage(videoRef.current, 0,0, 300, 300);
-          
+          // This is for rotate the photo
+          context.translate(300,0);
+          context.scale(-1,1);
+
+          context.drawImage(videoRef.current, 0,0, 300, 300);          
           canvasRef.current.toBlob((blob: any) => onCapture(blob), "image/jpeg", 1);
-          context.clearRect(0,0, 300,300);
         }
       }}>
         Take photo
