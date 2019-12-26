@@ -3,7 +3,11 @@ import { useUserMedia } from '../../hooks/useUserMedia';
 import './Camera.module.scss';
 import { storage } from '../../firebase/firebase.utils';
 
-const Camera = () => {
+interface ICameraProps {
+  setImageUrl: (imgUrl: string) => void;
+}
+
+const Camera = (props: ICameraProps) => {
   const videoRef = useRef<any>();
   const canvasRef = useRef<any>();
 
@@ -22,9 +26,11 @@ const Camera = () => {
     }
   }, [mediaStream]);
 
-  const onCapture= (blob: any) => {
-    storage.ref('images/prueba1.png').put(blob);
-
+  const onCapture= async (blob: any) => {
+    const imageUrl = await storage.ref('images/prueba1.png').put(blob).snapshot.ref.getDownloadURL();
+    props.setImageUrl(imageUrl);
+    console.log(imageUrl);
+    //console.log('URL', myPromise);
     if(mediaStream){
       mediaStream.getTracks()[0].stop();
     }
@@ -43,6 +49,7 @@ const Camera = () => {
 
           context.drawImage(videoRef.current, 0,0, 300, 300);          
           canvasRef.current.toBlob((blob: any) => onCapture(blob), "image/jpeg", 1);
+          context.clearRect(0,0, 300, 300);
         }
       }}>
         Take photo
