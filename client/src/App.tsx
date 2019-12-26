@@ -7,7 +7,7 @@ import CameraPage from './pages/camera/CameraPage';
 const App: React.FC = () => {
 
   return (
-    <div className="App">
+    <div className="App" data-test='component-app'>
       <Header/>
      <CameraPage/>
     </div>
