@@ -7,7 +7,7 @@ const CameraPage = () => {
   return (
     <div>
       <Camera setImageUrl={setImageUrl} />
-      <img src={imageUrl} alt='No image' />
+      <img src={imageUrl} alt='There are something'/>
     </div>
   );
 };
