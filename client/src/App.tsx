@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Header from './components/Header';
+import Header from './components/header/Header';
 import CameraPage from './pages/camera/CameraPage';
 
 const App: React.FC = () => {
