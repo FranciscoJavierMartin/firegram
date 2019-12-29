@@ -5,32 +5,40 @@ import './App.scss';
 import Header from './components/header/Header';
 import LoginPage from './pages/login/LoginPage';
 import { auth } from './firebase/firebase.utils';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from './store/user/userActions';
 import SignUpPage from './pages/signup/SignUpPage';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import CameraPage from './pages/camera/CameraPage';
 import HomePage from './pages/home/HomePage';
+import { IGlobalState } from './interfaces/states';
+import { FirebaseUser } from './interfaces/types';
+import { selectCurrentUser } from './store/user/userSelectors';
+
+const ProtectedRoute: React.FC = () => <h1>Hello protected</h1>
+const NonProtectedRoute: React.FC = () => <h1>Hello non protected</h1>
+
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   let unsubscribeFromAuth: any = null;
-
+  const currentUser = useSelector<IGlobalState, FirebaseUser>(selectCurrentUser);
+  
   useEffect(() => {
+
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      console.log('State change');
-      if(userAuth){
-        dispatch(userActions.setCurrentUser(userAuth));
-      }
+      console.log('State change', userAuth);
+
+      dispatch(userActions.setCurrentUser(userAuth));
     })
 
-    return () => {
+    /*return () => {
       console.log('Unsubscribe');
       if(unsubscribeFromAuth){
         
         unsubscribeFromAuth();
       }
-    }
+    }*/
   });
 
   return (
@@ -40,8 +48,8 @@ const App: React.FC = () => {
         <Route path='/login' component={LoginPage}/>
         <Route path='/signup' component={SignUpPage}/>
         <Route path='/camera' component={CameraPage}/>
-        <Route exact path='/' component={HomePage}/>
-      <LoginPage/>
+        <Route exact path='/' component={HomePage}/> 
+        <Route path='/protected' render={() => currentUser ? (<ProtectedRoute/>) : (<NonProtectedRoute/>)}/>
       </Switch>
     </div>
   );
