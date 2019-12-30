@@ -14,7 +14,7 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
-export const createUserProfileDocument = async (userAuth: any,additonalData: any) =>{
+export const createUserProfileDocument = async (userAuth: any,additonalData?: any) =>{
   const userRef = firestore.doc(`users/${userAuth.uid}`);
   const snapshot = await userRef.get();
 
