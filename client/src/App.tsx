@@ -4,11 +4,11 @@ import React, { useEffect } from 'react';
 import './App.scss';
 import Header from './components/header/Header';
 import LoginPage from './pages/login/LoginPage';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from './store/user/userActions';
 import SignUpPage from './pages/signup/SignUpPage';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import CameraPage from './pages/camera/CameraPage';
 import HomePage from './pages/home/HomePage';
 import { IGlobalState } from './interfaces/states';
@@ -26,19 +26,25 @@ const App: React.FC = () => {
   
   useEffect(() => {
 
-    unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth: FirebaseUser) => {
       console.log('State change', userAuth);
 
+      if(userAuth){
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot((snapshot: firebase.firestore.DocumentSnapshot) => {
+
+         console.log('Snapshot',snapshot.id);
+        })
+      }
       dispatch(userActions.setCurrentUser(userAuth));
     })
 
-    /*return () => {
-      console.log('Unsubscribe');
+    return () => {
       if(unsubscribeFromAuth){
-        
         unsubscribeFromAuth();
       }
-    }*/
+    }
   });
 
   return (
