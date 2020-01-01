@@ -5,6 +5,7 @@
   "homepage": "https://firegram-4587a.firebaseapp.com",
   "license": "MIT",
   "dependencies": {
+    "@types/react-modal": "^3.10.1",
     "bootstrap": "^4.4.1",
     "dotenv": "^8.2.0",
     "firebase": "^7.5.2",
@@ -13,6 +14,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-measure": "^2.3.0",
+    "react-modal": "^3.11.1",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
