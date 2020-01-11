@@ -1,10 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { useUserMedia } from '../../hooks/useUserMedia';
 import './Camera.module.scss';
-import { storage } from '../../firebase/firebase.utils';
+import { storage, firestore } from '../../firebase/firebase.utils';
 
 interface ICameraProps {
   setImageUrl: (imgUrl: string) => void;
+  closeModal?: () => void;
 }
 
 const Camera = (props: ICameraProps) => {
@@ -33,6 +34,21 @@ const Camera = (props: ICameraProps) => {
     const imageUrl = await (
       await storage.ref('images/prueba1.png').put(blob)
     ).ref.getDownloadURL();
+
+    try {
+      firestore.collection('posts').add({
+        imageUrl,
+        title: 'Title',
+        createAt: new Date()
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      if(props.closeModal){
+        props.closeModal();
+      }
+    }
+
     props.setImageUrl(imageUrl);
     if (mediaStream) {
       mediaStream.getTracks()[0].stop();
