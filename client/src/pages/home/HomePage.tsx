@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
           setModalIsOpen(true);
         }}
       >
-        Show modal
+        Create a post
       </button>
       <Modal isOpen={modalIsOpen} setIsOpen={setModalIsOpen}>
         <Camera
