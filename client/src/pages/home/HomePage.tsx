@@ -14,6 +14,8 @@ const HomePage: React.FC = () => {
     postsList = <h1>Loading</h1>;
   } else if (error) {
     postsList = <h1>Error</h1>;
+  } else if(posts.length === 0) {
+    postsList = <h1>No posts available</h1>
   } else {
     postsList = posts.map((post: IPost) => (
       <div key={post.id}>
