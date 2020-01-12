@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
     postsList = <h1>Error</h1>;
   } else {
     postsList = posts.map((post: IPost) => (
-      <div>
+      <div key={post.id}>
         <strong>{post.title}</strong>
         <img src={post.imageUrl} alt={post.title} />
       </div>

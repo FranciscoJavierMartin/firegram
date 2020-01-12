@@ -13,8 +13,7 @@ export const useFetchPosts = () => {
 
     async function anyNameFunction() {
       try {
-        const snapshot = await firestore.collection('posts').get();
-
+        const snapshot = await firestore.collection('posts').orderBy('createAt', 'desc').limit(5).get();
         const data: any[] = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setPosts(data);
         console.log(data);

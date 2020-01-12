@@ -2,6 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import { useUserMedia } from '../../hooks/useUserMedia';
 import './Camera.module.scss';
 import { storage, firestore } from '../../firebase/firebase.utils';
+import uuid from 'uuid';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../store/user/userSelectors';
+import { IGlobalState } from '../../interfaces/states';
+import { FirebaseUser } from '../../interfaces/types';
 
 interface ICameraProps {
   setImageUrl: (imgUrl: string) => void;
@@ -11,6 +16,7 @@ interface ICameraProps {
 const Camera = (props: ICameraProps) => {
   const videoRef = useRef<any>();
   const canvasRef = useRef<any>();
+  const currentUser = useSelector<IGlobalState, FirebaseUser>(selectCurrentUser);
 
   const mediaStream = useUserMedia({
     audio: false,
@@ -31,8 +37,10 @@ const Camera = (props: ICameraProps) => {
   }, [mediaStream]);
 
   const onCapture = async (blob: any) => {
+    const imageUniqueName = uuid.v4();
+    console.log('Unique image name', imageUniqueName);
     const imageUrl = await (
-      await storage.ref('images/prueba1.png').put(blob)
+      await storage.ref(`images/${currentUser?.uid}/${imageUniqueName}.png`).put(blob)
     ).ref.getDownloadURL();
 
     try {
