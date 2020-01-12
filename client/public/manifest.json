@@ -18,7 +18,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "https://firegram-4587a.web.app/",
+  "start_url": "https://firegram-4587a.firebaseapp.com/",
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff"
