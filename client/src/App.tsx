@@ -2,28 +2,30 @@
 // TODO: Remove the previous line
 import React, { useEffect } from 'react';
 import './App.scss';
-import Header from './components/header/Header';
 import LoginPage from './pages/login/LoginPage';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from './store/user/userActions';
 import SignUpPage from './pages/signup/SignUpPage';
 import { Switch, Route } from 'react-router-dom';
-import CameraPage from './pages/camera/CameraPage';
 import HomePage from './pages/home/HomePage';
 import { IGlobalState } from './interfaces/states';
 import { FirebaseUser } from './interfaces/types';
 import { selectCurrentUser } from './store/user/userSelectors';
+import { SIGNIN, SIGNUP , HOME, USER_PROFILE} from './constants/routes';
 
-const ProtectedRoute: React.FC = () => <h1>Hello protected</h1>
-const NonProtectedRoute: React.FC = () => <h1>Hello non protected</h1>
+
+import { Layout } from 'antd';
+import Navbar from './components/navbar/Navbar';
+import UserProfile from './pages/user-profile/UserProfile';
 
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   let unsubscribeFromAuth: any = null;
   const currentUser = useSelector<IGlobalState, FirebaseUser>(selectCurrentUser);
-  
+  const { Content, Footer } = Layout;
+
   useEffect(() => {
 
     unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth: FirebaseUser) => {
@@ -48,16 +50,15 @@ const App: React.FC = () => {
   });
 
   return (
-    <div className="App" data-test='component-app'>
-      <Header/>
+    <div>
+      <Navbar/>
       <Switch>
-        <Route path='/login' component={LoginPage}/>
-        <Route path='/signup' component={SignUpPage}/>
-        <Route path='/camera' component={CameraPage}/>
-        <Route exact path='/' component={HomePage}/> 
-        <Route path='/protected' render={() => currentUser ? (<ProtectedRoute/>) : (<NonProtectedRoute/>)}/>
+        <Route path={SIGNIN} component={LoginPage}/>
+        <Route path={SIGNUP} component={SignUpPage}/>
+        <Route path={USER_PROFILE} component={UserProfile}/>
+        <Route exact path={HOME} component={HomePage}/>
       </Switch>
-    </div>
+      </div>
   );
 }
 

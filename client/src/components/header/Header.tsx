@@ -1,31 +1,27 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { IGlobalState } from '../../interfaces/states';
-import { FirebaseUser } from '../../interfaces/types';
-import { auth } from '../../firebase/firebase.utils';
+import styles from './Header.module.scss';
+import { Layout, Menu } from 'antd';
 
-const Header: React.FC = () => {
-  const currentUser = useSelector<IGlobalState, FirebaseUser>(
-    (state: IGlobalState) => state.user.currentUser
-  );
+const CustomHeader: React.FC = () => {
+  const { Header } = Layout;
 
   return (
-    <header>
-      <span>User {currentUser?.displayName}</span>
-      <ul>
-        <li>Home</li>
-        <li>Log In</li>
-        <li>Sign Up</li>
-        <li>
-          <button onClick={() => {
-            auth.signOut();
-          }}>
-            Logout
-          </button>
-        </li>
-      </ul>
-    </header>
+    <Header>
+      <div className={styles.logo} />
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={['2']}
+        style={{ lineHeight: '64px' }}
+      >
+        <Menu.Item key="1">nav 1</Menu.Item>
+        <Menu.Item key="2">nav 2</Menu.Item>
+        <Menu.Item key="3">nav 3</Menu.Item>
+      </Menu>
+    </Header>
   );
 };
 
-export default Header;
+
+
+export default CustomHeader;
