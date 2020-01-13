@@ -1,20 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-//Imports for bootrstrap styles
-/*import $ from 'jquery';
-import Popper from 'popper.js';
-import 'bootstrap/dist/js/bootstrap.bundle';*/
-import 'bootstrap/dist/css/bootstrap.min.css';
-// End of imports for bootstrap
-import './index.scss';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { config } from 'dotenv';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import { BrowserRouter } from 'react-router-dom';
+import 'antd/dist/antd.css';
 
 config();
 
