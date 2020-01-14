@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from '../../components/modal/CustomModal';
 import Camera from '../../components/camera/Camera';
 import { useFetchPosts } from '../../hooks/useFetchPosts';
-import { IPost } from '../../interfaces/models/post';
+import PostsList from '../../components/posts-list/PostsList';
 
 const HomePage: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -17,12 +17,7 @@ const HomePage: React.FC = () => {
   } else if(posts.length === 0) {
     postsList = <h1>No posts available</h1>
   } else {
-    postsList = posts.map((post: IPost) => (
-      <div key={post.id}>
-        <strong>{post.title}</strong>
-        <img src={post.imageUrl} alt={post.title} />
-      </div>
-    ));
+    postsList = <PostsList posts={posts}/>
   }
 
   return (
