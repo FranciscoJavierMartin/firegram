@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.postImage{
+  flex-grow: 4;
+}
+
+.postText{
+  flex-grow: 3;
+}
+
+.comments{
+  max-height: 280px;
+  overflow: scroll;
+}
+
+@media (max-width: 767px) {
+  .container{
+    flex-direction: column;
+  }
+}
