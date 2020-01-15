@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Modal from '../../components/modal/CustomModal';
+import { Modal } from 'antd';
 import Camera from '../../components/camera/Camera';
 import { useFetchPosts } from '../../hooks/useFetchPosts';
-import PostsList from '../../components/posts-list/PostsList';
+import PostsList from '../../components/posts-list-extended/PostsListExtended';
 
 const HomePage: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -14,10 +14,10 @@ const HomePage: React.FC = () => {
     postsList = <h1>Loading</h1>;
   } else if (error) {
     postsList = <h1>Error</h1>;
-  } else if(posts.length === 0) {
-    postsList = <h1>No posts available</h1>
+  } else if (posts.length === 0) {
+    postsList = <h1>No posts available</h1>;
   } else {
-    postsList = <PostsList posts={posts}/>
+    postsList = <PostsList posts={posts} />;
   }
 
   return (
@@ -30,7 +30,16 @@ const HomePage: React.FC = () => {
       >
         Create a post
       </button>
-      <Modal isOpen={modalIsOpen} setIsOpen={setModalIsOpen}>
+      <Modal
+        visible={modalIsOpen}
+        centered
+        footer={null}
+        closable
+        destroyOnClose={true}
+        mask
+        maskClosable
+        onCancel={() => { setModalIsOpen(false); }}
+      >
         <Camera
           setImageUrl={(imageUrl: string) => {}}
           closeModal={() => setModalIsOpen(false)}
