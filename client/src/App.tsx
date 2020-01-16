@@ -12,10 +12,11 @@ import HomePage from './pages/home/HomePage';
 import { IGlobalState } from './interfaces/states';
 import { FirebaseUser } from './interfaces/types';
 import { selectCurrentUser } from './store/user/userSelectors';
-import { SIGNIN, SIGNUP , HOME, USER_PROFILE} from './constants/routes';
+import { SIGNIN, SIGNUP , HOME, USER_PROFILE, RESET_PASSWORD} from './constants/routes';
 import { Layout } from 'antd';
 import Navbar from './components/navbar/Navbar';
 import UserProfile from './pages/user-profile/UserProfile';
+import ResetPassword from './pages/reset-password/ResetPassword';
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -57,6 +58,7 @@ const App: React.FC = () => {
         <Route path={SIGNIN} component={LoginPage}/>
         <Route path={SIGNUP} component={SignUpPage}/>
         <Route path={USER_PROFILE} component={UserProfile}/>
+        <Route path={RESET_PASSWORD} component={ResetPassword}/>
         <Route exact path={HOME} component={HomePage}/>
       </Switch>
       </Content>

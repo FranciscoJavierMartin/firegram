@@ -3,7 +3,7 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import './LoginPage2.css';
 import { Link } from 'react-router-dom';
-import { SIGNUP } from '../../constants/routes';
+import { SIGNUP, RESET_PASSWORD } from '../../constants/routes';
 import { signInWithGoogle, auth } from '../../firebase/firebase.utils';
 
 interface ILoginFormProps extends FormComponentProps {}
@@ -75,7 +75,7 @@ const LoginForm: React.FC<ILoginFormProps> = (props: ILoginFormProps) => {
             valuePropName: 'checked',
             initialValue: true
           })(<Checkbox>Remember me</Checkbox>)}
-          <Link className='login-form-forgot' to='/'>
+          <Link className='login-form-forgot' to={RESET_PASSWORD}>
             Forgot password
           </Link>
           <Button
