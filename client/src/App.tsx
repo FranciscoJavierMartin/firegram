@@ -6,7 +6,7 @@ import LoginPage from './pages/login/LoginPage2';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { useDispatch, useSelector } from 'react-redux';
 import * as userActions from './store/user/userActions';
-import SignUpPage from './pages/signup/SignUpPage';
+import SignUpPage from './pages/signup/SignUpPage2';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from './pages/home/HomePage';
 import { IGlobalState } from './interfaces/states';
