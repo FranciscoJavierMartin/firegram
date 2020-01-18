@@ -14,8 +14,10 @@ interface ICameraProps {
 }
 
 const Camera = (props: ICameraProps) => {
-  const videoRef = useRef<any>();
-  const canvasRef = useRef<any>();
+  console.log('Camera');
+  let titleInputRef = useRef<HTMLInputElement>(null);
+  let videoRef = useRef<HTMLVideoElement>(null);
+  let canvasRef = useRef<HTMLCanvasElement>(null);
   const currentUser = useSelector<IGlobalState, FirebaseUser>(selectCurrentUser);
 
   const mediaStream = useUserMedia({
@@ -43,10 +45,12 @@ const Camera = (props: ICameraProps) => {
       await storage.ref(`images/${currentUser?.uid}/${imageUniqueName}.png`).put(blob)
     ).ref.getDownloadURL();
 
+    let title: string = titleInputRef.current ? titleInputRef.current.value : '';
+
     try {
       firestore.collection('posts').add({
         imageUrl,
-        title: 'Title',
+        title,
         createAt: new Date()
       });
     } catch (err) {
@@ -58,36 +62,50 @@ const Camera = (props: ICameraProps) => {
     }
 
     props.setImageUrl(imageUrl);
+
     if (mediaStream) {
       mediaStream.getTracks()[0].stop();
     }
   };
 
   return (
-    <div>
-      <video ref={videoRef} autoPlay muted />
-      <canvas ref={canvasRef} width={300} height={300} />
+    <form>
+      <div>
+        <video ref={videoRef} autoPlay muted />
+        <canvas ref={canvasRef} width={300} height={300} />
+      </div>
+      <div>
+        <input 
+          type='text' 
+          name='title' 
+          ref={titleInputRef}
+          placeholder='Title'/>
+      </div>
       <button
+        type='button'
         onClick={() => {
-          if (canvasRef) {
-            const context = canvasRef.current.getContext('2d');
+          if (canvasRef.current) {
+            const context: CanvasRenderingContext2D = canvasRef.current.getContext('2d')!!;
             // This is for rotate the photo
             context.translate(300, 0);
             context.scale(-1, 1);
 
-            context.drawImage(videoRef.current, 0, 0, 300, 300);
-            canvasRef.current.toBlob(
-              (blob: any) => onCapture(blob),
-              'image/jpeg',
-              1
-            );
+            if(videoRef.current){
+              context.drawImage(videoRef.current, 0, 0, 300, 300);
+              canvasRef.current.toBlob(
+                (blob: any) => onCapture(blob),
+                'image/jpeg',
+                1
+              );
+            }
+            
             context.clearRect(0, 0, 300, 300);
           }
         }}
       >
         Take photo
       </button>
-    </div>
+    </form>
   );
 };
 
