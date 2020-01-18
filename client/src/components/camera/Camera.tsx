@@ -1,28 +1,21 @@
 import React, { useRef, useEffect } from 'react';
 import { useUserMedia } from '../../hooks/useUserMedia';
 import './Camera.module.scss';
-import { storage, firestore } from '../../firebase/firebase.utils';
-import uuid from 'uuid';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../store/user/userSelectors';
-import { IGlobalState } from '../../interfaces/states';
-import { FirebaseUser } from '../../interfaces/types';
+import { uploadPost } from '../../firebase/firebase.utils';
+import { PHOTO_WIDTH, PHOTO_HEIGHT } from '../../constants/constants';
 
 interface ICameraProps {
-  setImageUrl: (imgUrl: string) => void;
-  closeModal?: () => void;
+  closeModal: () => void;
 }
 
 const Camera = (props: ICameraProps) => {
-  console.log('Camera');
   let titleInputRef = useRef<HTMLInputElement>(null);
   let videoRef = useRef<HTMLVideoElement>(null);
   let canvasRef = useRef<HTMLCanvasElement>(null);
-  const currentUser = useSelector<IGlobalState, FirebaseUser>(selectCurrentUser);
 
   const mediaStream = useUserMedia({
     audio: false,
-    video: { width: 300, height: 300 }
+    video: { width: PHOTO_WIDTH, height: PHOTO_HEIGHT }
   });
 
   if (mediaStream && videoRef.current && !videoRef.current.srcObject) {
@@ -38,22 +31,13 @@ const Camera = (props: ICameraProps) => {
     };
   }, [mediaStream]);
 
-  const onCapture = async (blob: any) => {
-    const imageUniqueName = uuid.v4();
-    console.log('Unique image name', imageUniqueName);
-    const imageUrl = await (
-      await storage.ref(`images/${currentUser?.uid}/${imageUniqueName}.png`).put(blob)
-    ).ref.getDownloadURL();
+  const onCapture: BlobCallback = async (blob: any) => {
 
     let title: string = titleInputRef.current ? titleInputRef.current.value : '';
 
-    try {
-      firestore.collection('posts').add({
-        imageUrl,
-        title,
-        createAt: new Date()
-      });
-    } catch (err) {
+    try{
+      uploadPost(blob, title);
+    } catch(err){
       console.error(err);
     } finally {
       if(props.closeModal){
@@ -61,37 +45,37 @@ const Camera = (props: ICameraProps) => {
       }
     }
 
-    props.setImageUrl(imageUrl);
-
     if (mediaStream) {
       mediaStream.getTracks()[0].stop();
     }
   };
 
   return (
-    <form>
+    <div>
       <div>
-        <video ref={videoRef} autoPlay muted />
-        <canvas ref={canvasRef} width={300} height={300} />
+        <video ref={videoRef} autoPlay muted data-test='video'/>
+        <canvas ref={canvasRef} width={300} height={300} data-test='canvas'/>
       </div>
       <div>
         <input 
           type='text' 
           name='title' 
           ref={titleInputRef}
-          placeholder='Title'/>
+          placeholder='Title'
+          data-test='input-title'/>
       </div>
       <button
         type='button'
+        data-test='button-take-photo'
         onClick={() => {
           if (canvasRef.current) {
             const context: CanvasRenderingContext2D = canvasRef.current.getContext('2d')!!;
             // This is for rotate the photo
-            context.translate(300, 0);
+            context.translate(PHOTO_WIDTH, 0);
             context.scale(-1, 1);
 
             if(videoRef.current){
-              context.drawImage(videoRef.current, 0, 0, 300, 300);
+              context.drawImage(videoRef.current, 0, 0, PHOTO_WIDTH, PHOTO_HEIGHT);
               canvasRef.current.toBlob(
                 (blob: any) => onCapture(blob),
                 'image/jpeg',
@@ -99,13 +83,13 @@ const Camera = (props: ICameraProps) => {
               );
             }
             
-            context.clearRect(0, 0, 300, 300);
+            context.clearRect(0, 0, PHOTO_WIDTH, PHOTO_HEIGHT);
           }
         }}
       >
         Take photo
       </button>
-    </form>
+    </div>
   );
 };
 

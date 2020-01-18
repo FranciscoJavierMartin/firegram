@@ -41,7 +41,6 @@ const HomePage: React.FC = () => {
         onCancel={() => { setModalIsOpen(false); }}
       >
         <Camera
-          setImageUrl={(imageUrl: string) => {}}
           closeModal={() => setModalIsOpen(false)}
         />
       </Modal>

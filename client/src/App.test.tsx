@@ -4,12 +4,21 @@ import { ShallowWrapper, shallow } from 'enzyme';
 import App from './App';
 
 /**
+ * Mock the useState hook
+ * @param newState 
+ */
+export const setHookState = (newState: any = {}) => jest.fn().mockImplementation((state: any = {}) => [
+  newState,
+  (newState: any = {}) => {}
+]);
+
+/**
  * Setup function for app component. 
  * @returns { ShallowWrapper }
  */
-/*const setup = (): ShallowWrapper => {
+const setup = (): ShallowWrapper => {
   return shallow(<App/>);
-}*/
+}
 
 test('Dummy test', () => {
   expect(true).toBe(true);
