@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://firegram-4587a.firebaseapp.com",
+  "homepage": "https://firegram-staging.firebaseapp.com",
   "license": "MIT",
   "dependencies": {
     "antd": "^3.26.6",
