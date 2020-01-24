@@ -11,10 +11,11 @@ interface IPostsListProps {
 
 const PostsList: React.FC<IPostsListProps> = (props: IPostsListProps) => {
   return (
-    <Row>
+    <Row data-test='posts-list'>
       {props.posts.map((post: IPost, index: number) => (
         <Col xs={24} md={12} lg={8} key={index}>
           <Card
+            data-test={`post-${index}`}
             onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
               if(props.selectCurrentPost){
                 props.selectCurrentPost(post);

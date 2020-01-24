@@ -11,7 +11,8 @@ jest.mock('react-redux', () => ({
 }));
 
 /**
- * Setup function for app component. 
+ * Setup function for Camera component.
+ * @param {() => void} closeModal - function to close modal
  * @returns { ShallowWrapper }
  */
 const setup = (closeModal: () => void): ShallowWrapper => {
@@ -21,12 +22,12 @@ const setup = (closeModal: () => void): ShallowWrapper => {
 }
 
 describe('Camera component', () => {
-  let closeModal: jest.Mock<() => void> = jest.fn();
+  let closeModalMock: jest.Mock<() => void> = jest.fn();
   let wrapper: ShallowWrapper;
 
   beforeEach(() => {
-    closeModal.mockClear();
-    wrapper = setup(closeModal);
+    closeModalMock.mockClear();
+    wrapper = setup(closeModalMock);
   });
 
   test('Render without error', () => {
@@ -60,6 +61,16 @@ describe('Camera component', () => {
     setTimeout(() => {
       expect(firebase.uploadPost).toHaveBeenCalled();
     }, 15000);
+  });
+
+  test('Modal is closed when post is upload', async () => {    
+    const buttonTakePhoto = findByTestAttr(wrapper, 'button-take-photo');
+    buttonTakePhoto.simulate('click');
+    const firebase = require('../../firebase/firebase.utils');
+    firebase.uploadPost = jest.fn();
+    setTimeout(() => {
+      expect(closeModalMock).toHaveBeenCalled();
+    },15000);
   });
 
 });
