@@ -15,9 +15,6 @@ install_client:
   stage: install
   script:
     - cd ./client && yarn install --cache-folder ../.cache_yarn
-  only:
-    - staging
-    - production
   artifacts:
     paths:
     - client/node_modules
@@ -26,9 +23,6 @@ build_client:
   stage: build
   script:
     - cd ./client && yarn build
-  only:
-    - staging
-    - production
   dependencies:
     - install_client
   artifacts:
@@ -39,10 +33,6 @@ test_client:
   stage: test
   script:
     - cd ./client && yarn test
-  only:
-    - staging
-    - production
-    - master
   dependencies:
     - install_client
 
