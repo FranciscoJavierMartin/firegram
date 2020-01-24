@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      <h1>Home1</h1>
+      <h1>Home2</h1>
       <button
         onClick={() => {
           setModalIsOpen(true);
