@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "firegram-4587a"
+    "production": "firegram-4587a",
+    "staging": "firegram-staging"
   }
 }
