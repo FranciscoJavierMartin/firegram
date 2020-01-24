@@ -14,16 +14,11 @@ const PostListExtended: React.FC<IPostListExtendedProps> = (
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [currentPost, setCurrentPost] = useState<IPost>();
 
-  // TODO: Remove this function, pass the setCurrentPost function instead
-  const selectCurrentPost = (post: IPost) => {
-    setCurrentPost(post);
-  };
-
   return (
     <React.Fragment>
       <PostsList
         posts={props.posts}
-        selectCurrentPost={selectCurrentPost}
+        selectCurrentPost={setCurrentPost}
         setModalVisible={setModalIsOpen}
       />
       <Modal

@@ -1,4 +1,7 @@
+import React from 'react';
 import { ShallowWrapper, ReactWrapper } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
+import App from '../src/App';
 
 /**
  * Return node(s) with the given data-test attribute.
@@ -25,3 +28,7 @@ export const findByTestAttrReactWrapper = (
 ): ReactWrapper => {
   return wrapper.find(`[data-test="${val}"]`);
 };
+
+export const getAppWithRouter = () => {
+  return <MemoryRouter><App/></MemoryRouter>
+}

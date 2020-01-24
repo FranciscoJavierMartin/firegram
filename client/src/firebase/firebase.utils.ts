@@ -3,6 +3,7 @@ import 'firebase/storage';
 import 'firebase/firestore';
 import 'firebase/auth';
 import uuid from 'uuid';
+import { FirebaseUser } from '../interfaces/types';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -41,7 +42,7 @@ export const createUserProfileDocument = async (
   return userRef;
 };
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<FirebaseUser> => {
   return new Promise((resolve, reject) => {
     const unsubscribe = auth.onAuthStateChanged(userAuth => {
       unsubscribe();
