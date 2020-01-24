@@ -42,6 +42,7 @@ test_client:
   only:
     - staging
     - production
+    - master
   dependencies:
     - install_client
 
