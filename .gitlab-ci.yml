@@ -21,6 +21,8 @@ install_client:
 
 build_client:
   stage: build
+  variables:
+    MY_KEY: 'MyKey'
   script:
     - cd ./client && yarn build
   dependencies:
