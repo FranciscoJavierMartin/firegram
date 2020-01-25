@@ -41,7 +41,7 @@ test_client:
 deploy_all_staging:
   stage: deploy
   script:
-    - yarn global add firebase-tools --cache-folder ../.cache_yarn
+    - echo $CI_ENVIRONMENT_NAME && yarn global add firebase-tools --cache-folder ../.cache_yarn
     - firebase deploy --token $FIREBASE_DEPLOY_KEY_STAGING --project staging
   only:
     - staging
@@ -53,7 +53,7 @@ deploy_all_staging:
 deploy_all_production:
   stage: deploy
   script:
-    - yarn global add firebase-tools --cache-folder ../.cache_yarn
+    - echo $CI_ENVIRONMENT_NAME && yarn global add firebase-tools --cache-folder ../.cache_yarn
     - firebase deploy --token $FIREBASE_DEPLOY_KEY_PRODUCTION --project production
   only:
     - production
