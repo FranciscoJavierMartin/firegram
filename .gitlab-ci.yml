@@ -27,6 +27,8 @@ build_client:
     - cd ./client && yarn build
   dependencies:
     - install_client
+  environment:
+    name: staging
   artifacts:
     paths:
     - client/build
