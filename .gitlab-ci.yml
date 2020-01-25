@@ -31,6 +31,20 @@ build_client:
     paths:
     - client/build
 
+build_client_staging:
+  stage: build
+  script:
+    - cd ./client && yarn build
+  dependencies:
+    - install_client
+  only:
+    - staging
+  environment:
+    name: staging
+  artifacts:
+    paths:
+    - client/build
+
 test_client:
   stage: test
   script:
@@ -48,7 +62,7 @@ deploy_all_staging:
   environment:
     name: staging
   dependencies:
-    - build_client
+    - build_client_staging
 
 deploy_all_production:
   stage: deploy
