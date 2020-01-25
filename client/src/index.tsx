@@ -13,6 +13,7 @@ import './index.scss';
 config();
 
 console.log('MY_KEY', process.env);
+console.log('Hello');
 
 ReactDOM.render(
   <Provider store={store}>
