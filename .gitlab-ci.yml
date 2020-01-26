@@ -29,8 +29,6 @@ build_client:
     paths:
     - client/build
 
-
-
 build_client_staging:
   stage: build
   script:
