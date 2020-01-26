@@ -12,9 +12,6 @@ import './index.scss';
 
 config();
 
-console.log('MY_KEY', process.env);
-console.log('Hello2');
-
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
