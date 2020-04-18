@@ -163,7 +163,7 @@ yarn add -D enzyme enzyme-adapter-react-16 enzyme-to-json jest jest-enzyme ts-je
 yarn add -D @types/enzyme @types/enzyme-adapter-react-16 @types/jest
 ~~~
 
-3. (Optional) With the deafult ```create-react-app``` setup types are added like a dependency instead a dev dependency so copy and paste to the proper place.
+3. (Optional) With the default ```create-react-app``` setup types are added like a dependency instead a dev dependency so copy and paste to the proper place.
 
 4. Create a file named ```jest.config.js``` and write the following code. Note that the extension is ```js``` not ```ts```.
 ~~~
